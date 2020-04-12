@@ -21,6 +21,7 @@ class GamePageBloc {
   StreamController isGameOver = StreamController<bool>();
   StreamController randomResultController = StreamController<int>();
   StreamController changeButtonDirection =  StreamController<bool>();
+  StreamController levelController = StreamController<int>();
 
   void dispose() {
     titleController.close();
@@ -28,6 +29,7 @@ class GamePageBloc {
     isGameOver.close();
     randomResultController.close();
     changeButtonDirection.close();
+    levelController.close();
     //timer.cancel();
   }
 
@@ -52,6 +54,7 @@ class GamePageBloc {
   }
 
   void gameOver(BuildContext context) async {
+    print('game over');
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -64,6 +67,7 @@ class GamePageBloc {
   void nextLevel(BuildContext context) {
     level++;
     print('level $level');
+    levelController.sink.add(level);
     if (timeOut > 1000) {
       timeOut = timeOut - level + 10;
       //timeOut = timeOut - 500;

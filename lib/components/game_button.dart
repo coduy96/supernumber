@@ -15,6 +15,10 @@ class ButtonStyle {
       topColor: const Color(0xFF4BA8DF), backColor: const Color(0xFF478CBC));
   static const YELLOW = const ButtonStyle(
       topColor: const Color(0xFFf39c1e), backColor: const Color(0xFFbf7a25));
+  static const WHITE = const ButtonStyle(
+      topColor: const Color(0xFFFFFDEA), backColor: const Color(0xFF478CBC));
+       static const GREEN = const ButtonStyle(
+      topColor: const Color(0xFF1DB957), backColor: const Color(0xFF259050));
 }
 
 class GameButton extends StatefulWidget {
