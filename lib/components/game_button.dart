@@ -16,7 +16,7 @@ class ButtonStyle {
   static const YELLOW = const ButtonStyle(
       topColor: const Color(0xFFf39c1e), backColor: const Color(0xFFbf7a25));
   static const WHITE = const ButtonStyle(
-      topColor: const Color(0xFFFFFDEA), backColor: const Color(0xFF478CBC));
+      topColor: const Color(0xFFFFFDEA), backColor: const Color(0xFFE8586F));
        static const GREEN = const ButtonStyle(
       topColor: const Color(0xFF1DB957), backColor: const Color(0xFF259050));
 }

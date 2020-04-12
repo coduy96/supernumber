@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:stupidnumber/blocs/GamePageBloc.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:stupidnumber/components/game_button.dart';
 
 class GamePage extends StatefulWidget {
