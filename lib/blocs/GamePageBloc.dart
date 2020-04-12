@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:stupidnumber/pages/over_page.dart';
 
 class GamePageBloc {
-  int timeOut = 10000;
+  int timeOut = 5000;
   int level = 0;
   int firstNumber = 0;
   int secondNumber = 0;
@@ -19,16 +19,21 @@ class GamePageBloc {
   StreamController titleController = StreamController<String>();
   StreamController percentController = StreamController<double>();
   StreamController isGameOver = StreamController<bool>();
+  StreamController randomResultController = StreamController<int>();
+  StreamController changeButtonDirection =  StreamController<bool>();
 
   void dispose() {
     titleController.close();
     percentController.close();
     isGameOver.close();
+    randomResultController.close();
+    changeButtonDirection.close();
     //timer.cancel();
   }
 
   void syncData() {
     titleController.sink.add(title);
+    randomResultController.sink.add(randomResult);
   }
 
   var randomGenerator = Random();
@@ -47,18 +52,6 @@ class GamePageBloc {
   }
 
   void gameOver(BuildContext context) async {
-    print('Game Over');
-    //timer.cancel();
-    // timeOut = 3000;
-    // level = 0;
-    // firstNumber = 0;
-    // secondNumber = 0;
-    // randomResult = 0;
-    // mainResult = 0;
-    // title = '';
-    // percent = 1;
-    // currentTimeOut = 0;
-    // dispose();
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -71,7 +64,12 @@ class GamePageBloc {
   void nextLevel(BuildContext context) {
     level++;
     print('level $level');
-    timeOut = timeOut - level;
+    if (timeOut > 1000) {
+      timeOut = timeOut - level + 10;
+      //timeOut = timeOut - 500;
+    }
+
+    //timeOut = timeOut -1000;
     print('timeout $timeOut');
     startTimer(context);
     //pickRandom();
@@ -89,16 +87,17 @@ class GamePageBloc {
     bool randomChoice = randomGenerator.nextBool();
     if (randomChoice) {
       randomResult = mainResult;
+      changeButtonDirection.sink.add(true);
     } else {
       if (randomGenerator.nextBool()) {
         randomResult = randomGenerator.nextInt(level);
       } else {
+        changeButtonDirection.sink.add(false);
         randomResult = mainResult + randomGenerator.nextInt(5);
       }
     }
 
-    title =
-        '${firstNumber.toString()} + ${secondNumber.toString()} = ${randomResult.toString()}';
+    title = '${firstNumber.toString()} + ${secondNumber.toString()}';
     print('title: $title');
     syncData();
   }
