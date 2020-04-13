@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stupidnumber/components/game_button.dart';
 import 'package:stupidnumber/pages/game_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -22,14 +25,14 @@ class HomePage extends StatelessWidget {
         //     size: 30,
         //   ),
         // ),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.share,
-                size: 30,
-              ),
-              onPressed: () {}),
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //       icon: Icon(
+        //         Icons.share,
+        //         size: 30,
+        //       ),
+        //       onPressed: () {}),
+        // ],
       ),
       body: Container(
         height: double.infinity,
@@ -110,7 +113,7 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GameButton(
-                onPressed: () {},
+                onPressed: () {launch('https://dver.now.sh/');},
                 height: _screenWH * 28,
                 width: _screenWH * 120,
                 style: ButtonStyle.YELLOW,
@@ -122,7 +125,7 @@ class HomePage extends StatelessWidget {
                       child: Icon(Icons.data_usage, color: Colors.white),
                     ),
                     Text(
-                      'Ranking',
+                      'About',
                       style: GoogleFonts.sigmarOne(
                           color: Colors.white, fontSize: _screenWH * 10),
                     ),
@@ -130,29 +133,31 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: GameButton(
-            //     onPressed: () {},
-            //     height: _screenWH * 28,
-            //     width: _screenWH * 120,
-            //     style: ButtonStyle.DEFAULT,
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: <Widget>[
-            //         Padding(
-            //           padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-            //           child: Icon(Icons.highlight_off, color: Colors.white),
-            //         ),
-            //         Text(
-            //           'Quit',
-            //           style: GoogleFonts.sigmarOne(
-            //               color: Colors.white, fontSize: _screenWH * 10),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GameButton(
+                onPressed: () {
+                  exit(0);
+                },
+                height: _screenWH * 28,
+                width: _screenWH * 120,
+                style: ButtonStyle.DEFAULT,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                      child: Icon(Icons.highlight_off, color: Colors.white),
+                    ),
+                    Text(
+                      'Quit',
+                      style: GoogleFonts.sigmarOne(
+                          color: Colors.white, fontSize: _screenWH * 10),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
