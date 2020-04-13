@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stupidnumber/components/game_button.dart';
 import 'package:stupidnumber/pages/game_page.dart';
+import 'package:flutter_audio_player/flutter_audio_player.dart';
 
 class OverPage extends StatelessWidget {
   final finalScore;
-  const OverPage({this.finalScore});
+  final bestScore;
+  const OverPage({this.finalScore, this.bestScore});
 
+  
   @override
   Widget build(BuildContext context) {
+    AudioPlayer.addSound('assets/gameover.mp3');
+
     final double _screenWidth = MediaQuery.of(context).size.width;
     final double _screenHeight = MediaQuery.of(context).size.height;
     final double _screenWH = _screenHeight / _screenWidth;
@@ -33,19 +38,19 @@ class OverPage extends StatelessWidget {
                 width: _screenWidth * 50,
                 height: _screenWH * 90,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                  Text(
-                    'Current Score: $finalScore',
-                    style: GoogleFonts.sigmarOne(
-                        color: Color(0xFF45484c), fontSize: 30),
-                  ),
-                  Text(
-                    'Best Score: $finalScore',
-                    style: GoogleFonts.sigmarOne(
-                        color: Color(0xFF45484c), fontSize: 30),
-                  ),
-                ]),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        'Current Score: $finalScore',
+                        style: GoogleFonts.sigmarOne(
+                            color: Color(0xFF45484c), fontSize: 25),
+                      ),
+                      Text(
+                        'Best Score: $bestScore',
+                        style: GoogleFonts.sigmarOne(
+                            color: Color(0xFF45484c), fontSize: 25),
+                      ),
+                    ]),
               ),
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -53,7 +58,10 @@ class OverPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: GameButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pop(
+                      context,
+                    );
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => GamePage()),
                     );

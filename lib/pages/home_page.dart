@@ -15,13 +15,13 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xffff363062),
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.settings,
-            size: 30,
-          ),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {},
+        //   icon: Icon(
+        //     Icons.settings,
+        //     size: 30,
+        //   ),
+        // ),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -59,7 +59,8 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: GameButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => GamePage()),
                   );

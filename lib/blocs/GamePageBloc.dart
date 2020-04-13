@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:stupidnumber/pages/over_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GamePageBloc {
   int timeOut = 5000;
@@ -15,12 +16,13 @@ class GamePageBloc {
   double percent = 1;
   Timer timer;
   int currentTimeOut = 0;
+  int bestScore = 0;
 
   StreamController titleController = StreamController<String>();
   StreamController percentController = StreamController<double>();
   StreamController isGameOver = StreamController<bool>();
   StreamController randomResultController = StreamController<int>();
-  StreamController changeButtonDirection =  StreamController<bool>();
+  StreamController changeButtonDirection = StreamController<bool>();
   StreamController levelController = StreamController<int>();
 
   void dispose() {
@@ -59,7 +61,7 @@ class GamePageBloc {
       context,
       MaterialPageRoute(
           builder: (context) => OverPage(
-                finalScore: level,
+                finalScore: level,bestScore: bestScore,
               )),
     );
   }
@@ -104,5 +106,24 @@ class GamePageBloc {
     title = '${firstNumber.toString()} + ${secondNumber.toString()}';
     print('title: $title');
     syncData();
+  }
+
+  checkScore() async {
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    if (prefs.getInt('bestScore') == null) {
+      print('go to null');
+      prefs.setInt('bestScore', 0);
+      bestScore = 0;
+    }
+    if (level > prefs.getInt('bestScore')) {
+      prefs.setInt('bestScore', level);
+      bestScore = level;
+      print('Best score: $bestScore');
+    }
+    if (level < prefs.getInt('bestScore')) {
+      bestScore = prefs.getInt('bestScore');
+      print('Best score: $bestScore');
+    }
   }
 }
