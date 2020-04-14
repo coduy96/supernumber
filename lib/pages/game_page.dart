@@ -111,6 +111,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                   StreamBuilder<Object>(
                       stream: _gamePageBloc.randomResultController.stream,
                       builder: (context, snapshot) {
+                        print('dataSnapshot ${snapshot.data}');
                         return Draggable(
                           data: _gamePageBloc.randomResult,
                           child: GameButton(
@@ -119,9 +120,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                             height: _screenWH * 50,
                             child: Center(
                               child: Text(
-                                snapshot.data.toString(),
+                                snapshot.data,
                                 style: GoogleFonts.sigmarOne(
-                                    fontSize: 50, color: Colors.white),
+                                    fontSize: 30, color: Colors.white),
                               ),
                             ),
                           ),
@@ -136,9 +137,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                             height: _screenWH * 50,
                             child: Center(
                               child: Text(
-                                snapshot.data.toString(),
+                                snapshot.data,
                                 style: GoogleFonts.sigmarOne(
-                                    fontSize: 50, color: Colors.white),
+                                    fontSize: 30, color: Colors.white),
                               ),
                             ),
                           ),
@@ -159,7 +160,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                     style: ButtonStyle.GREEN,
                                     child: DragTarget(
                                       builder: (context,
-                                          List<int> candidateData,
+                                          List<String> candidateData,
                                           rejectedData) {
                                         print(candidateData);
                                         return Center(
@@ -207,7 +208,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                     style: ButtonStyle.RED,
                                     child: DragTarget(
                                       builder: (context,
-                                          List<int> candidateData,
+                                          List<String> candidateData,
                                           rejectedData) {
                                         return Center(
                                           child: Icon(
@@ -259,7 +260,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                     style: ButtonStyle.RED,
                                     child: DragTarget(
                                       builder: (context,
-                                          List<int> candidateData,
+                                          List<String> candidateData,
                                           rejectedData) {
                                         return Center(
                                           child: Icon(
@@ -305,7 +306,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                     style: ButtonStyle.GREEN,
                                     child: DragTarget(
                                       builder: (context,
-                                          List<int> candidateData,
+                                          List<String> candidateData,
                                           rejectedData) {
                                         print(candidateData);
                                         return Center(

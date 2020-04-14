@@ -6,12 +6,12 @@ import 'package:stupidnumber/pages/over_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GamePageBloc {
-  int timeOut = 5000;
+  int timeOut = 100000;
   int level = 0;
   int firstNumber = 0;
   int secondNumber = 0;
-  int randomResult = 0;
-  int mainResult = 0;
+  String randomResult = '0';
+  String mainResult = '0';
   String title = '';
   double percent = 1;
   Timer timer;
@@ -21,7 +21,7 @@ class GamePageBloc {
   StreamController titleController = StreamController<String>();
   StreamController percentController = StreamController<double>();
   StreamController isGameOver = StreamController<bool>();
-  StreamController randomResultController = StreamController<int>();
+  StreamController randomResultController = StreamController<String>();
   StreamController changeButtonDirection = StreamController<bool>();
   StreamController levelController = StreamController<int>();
 
@@ -61,7 +61,8 @@ class GamePageBloc {
       context,
       MaterialPageRoute(
           builder: (context) => OverPage(
-                finalScore: level,bestScore: bestScore,
+                finalScore: level,
+                bestScore: bestScore,
               )),
     );
   }
@@ -84,28 +85,91 @@ class GamePageBloc {
   void pickRandom(BuildContext context) {
     nextLevel(context);
     print('timeout = $timeOut level: $level');
-    firstNumber = randomGenerator.nextInt(level + 4);
-    secondNumber = randomGenerator.nextInt(level + 4);
+    firstNumber = randomGenerator.nextInt(level+3) + 3;
+    secondNumber = randomGenerator.nextInt(level+3) + 3;
+    //generatePlus();
+    //generateMulti();
+    //generateMinus();
+    generateDevide();
+    print('title: $title');
+    syncData();
+  }
 
-    mainResult = firstNumber + secondNumber;
+  void generatePlus() {
+    mainResult = (firstNumber + secondNumber).toString();
     //generate random result
-
     bool randomChoice = randomGenerator.nextBool();
+    changeButtonDirection.sink.add(randomGenerator.nextBool());
     if (randomChoice) {
       randomResult = mainResult;
-      changeButtonDirection.sink.add(true);
     } else {
       if (randomGenerator.nextBool()) {
-        randomResult = randomGenerator.nextInt(level);
+        randomResult = (randomGenerator.nextInt(level) + 1).toString();
       } else {
-        changeButtonDirection.sink.add(false);
-        randomResult = mainResult + randomGenerator.nextInt(5);
+        randomResult =
+            (int.parse(mainResult) + randomGenerator.nextInt(5)).toString();
       }
     }
 
     title = '${firstNumber.toString()} + ${secondNumber.toString()}';
-    print('title: $title');
-    syncData();
+  }
+
+  void generateMinus() {
+    mainResult = (firstNumber - secondNumber).toString();
+    //generate random result
+    bool randomChoice = randomGenerator.nextBool();
+    changeButtonDirection.sink.add(randomGenerator.nextBool());
+    if (randomChoice) {
+      randomResult = mainResult;
+    } else {
+      if (randomGenerator.nextBool()) {
+        randomResult = (randomGenerator.nextInt(level)).toString();
+      } else {
+        randomResult =
+            (int.parse(mainResult) - randomGenerator.nextInt(5)).toString();
+      }
+    }
+
+    title = '${firstNumber.toString()} - ${secondNumber.toString()}';
+  }
+
+  void generateMulti() {
+    mainResult = (firstNumber * secondNumber).toString();
+    //generate random result
+    bool randomChoice = randomGenerator.nextBool();
+    changeButtonDirection.sink.add(randomGenerator.nextBool());
+    if (randomChoice) {
+      randomResult = mainResult;
+    } else {
+      if (randomGenerator.nextBool()) {
+        randomResult = (randomGenerator.nextInt(level)).toString();
+      } else {
+        randomResult =
+            (int.parse(mainResult) + randomGenerator.nextInt(5)).toString();
+      }
+    }
+
+    title = '${firstNumber.toString()} * ${secondNumber.toString()}';
+  }
+
+  void generateDevide() {
+    mainResult = (firstNumber / secondNumber).toStringAsFixed(1);
+    //generate random result
+    bool randomChoice = randomGenerator.nextBool();
+    changeButtonDirection.sink.add(randomGenerator.nextBool());
+    if (randomChoice) {
+      randomResult = mainResult;
+    } else {
+      if (randomGenerator.nextBool()) {
+        randomResult =
+            (randomGenerator.nextInt(level)).toDouble().toStringAsFixed(1);
+      } else {
+        randomResult = (double.parse(mainResult) + randomGenerator.nextDouble())
+            .toStringAsFixed(1);
+      }
+    }
+
+    title = '${firstNumber.toString()} / ${secondNumber.toString()}';
   }
 
   checkScore() async {
@@ -126,4 +190,6 @@ class GamePageBloc {
       print('Best score: $bestScore');
     }
   }
+
+
 }
