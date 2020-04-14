@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stupidnumber/components/game_button.dart';
 import 'package:stupidnumber/pages/game_page.dart';
-import 'package:flutter_audio_player/flutter_audio_player.dart';
+// import 'package:flutter_audio_player/flutter_audio_player.dart';
 import 'package:screenshot/screenshot.dart';
 
 class OverPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class OverPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AudioPlayer.addSound('assets/gameover.mp3');
+    //AudioPlayer.addSound('assets/gameover.mp3');
     ScreenshotController screenshotController = ScreenshotController();
 
     final double _screenWidth = MediaQuery.of(context).size.width;

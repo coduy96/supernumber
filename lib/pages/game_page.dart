@@ -1,3 +1,5 @@
+//import 'package:assets_audio_player/assets_audio_player.dart';
+//import 'package:audioplayer/audioplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -17,7 +19,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     // TODO: implement dispose
-    _gamePageBloc.dispose();
+    //_gamePageBloc.dispose();
     super.dispose();
   }
 
@@ -29,6 +31,11 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    //final assetsAudioPlayer = AssetsAudioPlayer();
+    // AudioPlayer advancedPlayer;
+    // AudioCache audioCache;
+    //AudioPlayer audioPlugin = AudioPlayer();
+
     final double _screenWidth = MediaQuery.of(context).size.width;
     final double _screenHeight = MediaQuery.of(context).size.height;
     final double _screenWH = _screenHeight / _screenWidth;
@@ -44,12 +51,12 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
           ),
           onPressed: () {
             Navigator.pop(
-                      context,
-                    );
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
+              context,
+            );
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+            );
           },
         ),
         actions: <Widget>[
@@ -172,11 +179,16 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                       onWillAccept: (data) {
                                         return true;
                                       },
-                                      onAccept: (data) async{
+                                      onAccept: (data) async {
                                         print(data);
                                         if (data == _gamePageBloc.mainResult) {
                                           print('right');
-                                          AudioPlayer.addSound('assets/gameplay.mp3');
+                                          //audioPlugin.play('gameplay.mp3');
+                                          AudioPlayer.addSound(
+                                              'assets/gameplay.mp3');
+                                          // assetsAudioPlayer.open(
+                                          //   Audio("assets/gameplay.mp3"),
+                                          // );
                                           _gamePageBloc.timer.cancel();
                                           _gamePageBloc.pickRandom(context);
                                           print(
@@ -218,7 +230,13 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                       onAccept: (data) async {
                                         if (data != _gamePageBloc.mainResult) {
                                           print('right');
-                                          AudioPlayer.addSound('assets/gameplay.mp3');
+                                          //audioPlugin.play('gameplay.mp3');
+
+                                          AudioPlayer.addSound(
+                                              'assets/gameplay.mp3');
+                                          // assetsAudioPlayer.open(
+                                          //   Audio("assets/gameplay.mp3"),
+                                          // );
                                           _gamePageBloc.timer.cancel();
                                           _gamePageBloc.pickRandom(context);
                                         } else {
@@ -264,7 +282,13 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                       onAccept: (data) async {
                                         if (data != _gamePageBloc.mainResult) {
                                           print('right');
-                                          AudioPlayer.addSound('assets/gameplay.mp3');
+                                         // audioPlugin.play('gameplay.mp3');
+
+                                          AudioPlayer.addSound(
+                                              'assets/gameplay.mp3');
+                                          // assetsAudioPlayer.open(
+                                          //   Audio("assets/gameplay.mp3"),
+                                          // );
                                           _gamePageBloc.timer.cancel();
                                           _gamePageBloc.pickRandom(context);
                                         } else {
@@ -306,7 +330,13 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                         print(data);
                                         if (data == _gamePageBloc.mainResult) {
                                           print('right');
-                                          AudioPlayer.addSound('assets/gameplay.mp3');
+                                          //audioPlugin.play('gameplay.mp3');
+
+                                          AudioPlayer.addSound(
+                                              'assets/gameplay.mp3');
+                                          // assetsAudioPlayer.open(
+                                          //   Audio("assets/gameplay.mp3"),
+                                          // );
                                           _gamePageBloc.timer.cancel();
                                           _gamePageBloc.pickRandom(context);
                                           print(

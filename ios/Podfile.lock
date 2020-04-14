@@ -1,4 +1,6 @@
 PODS:
+  - audioplayer (0.0.1):
+    - Flutter
   - audioplayers (0.0.1):
     - Flutter
   - Flutter (1.0.0)
@@ -22,6 +24,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - audioplayer (from `.symlinks/plugins/audioplayer/ios`)
   - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
   - Flutter (from `Flutter`)
   - flutter_audio_player (from `.symlinks/plugins/flutter_audio_player/ios`)
@@ -35,6 +38,8 @@ DEPENDENCIES:
   - url_launcher_web (from `.symlinks/plugins/url_launcher_web/ios`)
 
 EXTERNAL SOURCES:
+  audioplayer:
+    :path: ".symlinks/plugins/audioplayer/ios"
   audioplayers:
     :path: ".symlinks/plugins/audioplayers/ios"
   Flutter:
@@ -59,6 +64,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_web/ios"
 
 SPEC CHECKSUMS:
+  audioplayer: 0584f31a697e4b0bbad405ae7903d7a93585e784
   audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_audio_player: 1f3a1d240b32db1cbbe89a2d7fa51fa24f393dd0
