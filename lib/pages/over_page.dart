@@ -13,7 +13,7 @@ class OverPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Flame.audio.play('gameplay.mp3', volume: 100.0);
+    Flame.audio.play('gameover.mp3', volume: 30.0);
     ScreenshotController screenshotController = ScreenshotController();
 
     final double _screenWidth = MediaQuery.of(context).size.width;
@@ -44,6 +44,16 @@ class OverPage extends StatelessWidget {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
+                        Builder(builder: (context){
+                          if(gamePlay == 'baby'){
+                            return Image.asset('assets/baby.png', width:_screenWH*20);
+                          }else if (gamePlay == 'human'){
+                            return Image.asset('assets/human.png', width:_screenWH*20);
+                          }else{
+                            return Image.asset('assets/superhuman.png', width:_screenWH*20);
+                          }
+                        }),
+
                         Text(
                           'Current Score: $finalScore',
                           style: GoogleFonts.sigmarOne(
@@ -92,30 +102,30 @@ class OverPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    GameButton(
-                      onPressed: () {
-                        //Sharing function
-                        screenshotController.capture(
-                            delay: Duration(milliseconds: 10));
-                      },
-                      height: _screenWH * 28,
-                      width: _screenWH * 70,
-                      style: ButtonStyle.BLUE,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-                            child: Icon(Icons.share, color: Colors.white),
-                          ),
-                          Text(
-                            'Share',
-                            style: GoogleFonts.sigmarOne(
-                                color: Colors.white, fontSize: _screenWH * 10),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // GameButton(
+                    //   onPressed: () {
+                    //     //Sharing function
+                    //     screenshotController.capture(
+                    //         delay: Duration(milliseconds: 10));
+                    //   },
+                    //   height: _screenWH * 28,
+                    //   width: _screenWH * 70,
+                    //   style: ButtonStyle.BLUE,
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: <Widget>[
+                    //       Padding(
+                    //         padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                    //         child: Icon(Icons.share, color: Colors.white),
+                    //       ),
+                    //       Text(
+                    //         'Share',
+                    //         style: GoogleFonts.sigmarOne(
+                    //             color: Colors.white, fontSize: _screenWH * 10),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ]),
             ],
           ),

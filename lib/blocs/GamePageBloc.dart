@@ -207,22 +207,57 @@ class GamePageBloc {
     title = '${firstNumber.toString()} / ${secondNumber.toString()}';
   }
 
-  checkScore() async {
+  checkScore(String gamePlay) async {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
-    if (prefs.getInt('bestScore') == null) {
-      print('go to null');
-      prefs.setInt('bestScore', 0);
-      bestScore = 0;
-    }
-    if (level > prefs.getInt('bestScore')) {
-      prefs.setInt('bestScore', level);
-      bestScore = level;
-      print('Best score: $bestScore');
-    }
-    if (level < prefs.getInt('bestScore')) {
-      bestScore = prefs.getInt('bestScore');
-      print('Best score: $bestScore');
+    switch (gamePlay) {
+      case 'baby':
+        if (prefs.getInt('bestScoreBaby') == null) {
+          print('go to null');
+          prefs.setInt('bestScoreBaby', 0);
+          bestScore = 0;
+        }
+        if (level > prefs.getInt('bestScoreBaby')) {
+          prefs.setInt('bestScoreBaby', level);
+          bestScore = level;
+          print('Best score: $bestScore');
+        }
+        if (level < prefs.getInt('bestScoreBaby')) {
+          bestScore = prefs.getInt('bestScoreBaby');
+          print('Best score: $bestScore');
+        }
+        break;
+      case 'human':
+        if (prefs.getInt('bestScoreHuman') == null) {
+          print('go to null');
+          prefs.setInt('bestScoreHuman', 0);
+          bestScore = 0;
+        }
+        if (level > prefs.getInt('bestScoreHuman')) {
+          prefs.setInt('bestScoreHuman', level);
+          bestScore = level;
+          print('Best score: $bestScore');
+        }
+        if (level < prefs.getInt('bestScoreHuman')) {
+          bestScore = prefs.getInt('bestScoreHuman');
+          print('Best score: $bestScore');
+        }
+        break;
+      case 'superhuman':
+        if (prefs.getInt('bestScoreSuperHuman') == null) {
+          print('go to null');
+          prefs.setInt('bestScoreSuperHuman', 0);
+          bestScore = 0;
+        }
+        if (level > prefs.getInt('bestScoreSuperHuman')) {
+          prefs.setInt('bestScoreSuperHuman', level);
+          bestScore = level;
+          print('Best score: $bestScore');
+        }
+        if (level < prefs.getInt('bestScoreSuperHuman')) {
+          bestScore = prefs.getInt('bestScoreSuperHuman');
+          print('Best score: $bestScore');
+        }
     }
   }
 }

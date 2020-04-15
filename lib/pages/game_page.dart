@@ -186,8 +186,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                         print(data);
                                         if (data == _gamePageBloc.mainResult) {
                                           print('right');
-                                          Flame.audio
-                                              .play('gameplay.mp3', volume: 100.0);
+                                          Flame.audio.play('gameplay.mp3',
+                                              volume: 70.0);
 
                                           _gamePageBloc.timer.cancel();
                                           _gamePageBloc.pickRandom(
@@ -195,7 +195,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                           print(
                                               'result ${_gamePageBloc.mainResult}');
                                         } else {
-                                          await _gamePageBloc.checkScore();
+                                          await _gamePageBloc
+                                              .checkScore(widget.gamePlay);
                                           _gamePageBloc.gameOver(
                                               context, widget.gamePlay);
                                           print('wrong');
@@ -232,14 +233,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                       onAccept: (data) async {
                                         if (data != _gamePageBloc.mainResult) {
                                           print('right');
-                                          Flame.audio
-                                              .play('gameplay.mp3', volume: 100.0);
+                                          Flame.audio.play('gameplay.mp3',
+                                              volume: 70.0);
 
                                           _gamePageBloc.timer.cancel();
                                           _gamePageBloc.pickRandom(
                                               context, widget.gamePlay);
                                         } else {
-                                          await _gamePageBloc.checkScore();
+                                          await _gamePageBloc
+                                              .checkScore(widget.gamePlay);
                                           _gamePageBloc.gameOver(
                                               context, widget.gamePlay);
                                           print('wrong');
@@ -282,14 +284,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                       onAccept: (data) async {
                                         if (data != _gamePageBloc.mainResult) {
                                           print('right');
-                                          Flame.audio
-                                              .play('gameplay.mp3', volume: 100.0);
+                                          Flame.audio.play('gameplay.mp3',
+                                              volume: 70.0);
 
                                           _gamePageBloc.timer.cancel();
                                           _gamePageBloc.pickRandom(
                                               context, widget.gamePlay);
                                         } else {
-                                          await _gamePageBloc.checkScore();
+                                          await _gamePageBloc
+                                              .checkScore(widget.gamePlay);
                                           _gamePageBloc.gameOver(
                                               context, widget.gamePlay);
                                           print('wrong');
@@ -328,8 +331,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                         print(data);
                                         if (data == _gamePageBloc.mainResult) {
                                           print('right');
-                                          Flame.audio
-                                              .play('gameplay.mp3', volume: 100.0);
+                                          Flame.audio.play('gameplay.mp3',
+                                              volume: 70.0);
 
                                           _gamePageBloc.timer.cancel();
                                           _gamePageBloc.pickRandom(
@@ -337,7 +340,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                           print(
                                               'result ${_gamePageBloc.mainResult}');
                                         } else {
-                                          await _gamePageBloc.checkScore();
+                                          await _gamePageBloc
+                                              .checkScore(widget.gamePlay);
                                           _gamePageBloc.gameOver(
                                               context, widget.gamePlay);
                                           print('wrong');
