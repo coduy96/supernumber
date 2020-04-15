@@ -1,18 +1,19 @@
+import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stupidnumber/components/game_button.dart';
-import 'package:stupidnumber/pages/game_page.dart';
-// import 'package:flutter_audio_player/flutter_audio_player.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:stupidnumber/pages/home_page.dart';
 
 class OverPage extends StatelessWidget {
   final finalScore;
   final bestScore;
-  const OverPage({this.finalScore, this.bestScore});
+  final gamePlay;
+  const OverPage({this.finalScore, this.bestScore, this.gamePlay});
 
   @override
   Widget build(BuildContext context) {
-    //AudioPlayer.addSound('assets/gameover.mp3');
+    Flame.audio.play('gameplay.mp3', volume: 100.0);
     ScreenshotController screenshotController = ScreenshotController();
 
     final double _screenWidth = MediaQuery.of(context).size.width;
@@ -68,7 +69,7 @@ class OverPage extends StatelessWidget {
                           );
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => GamePage()),
+                            MaterialPageRoute(builder: (context) => HomePage()),
                           );
                         },
                         height: _screenWH * 28,
@@ -94,7 +95,8 @@ class OverPage extends StatelessWidget {
                     GameButton(
                       onPressed: () {
                         //Sharing function
-                        screenshotController.capture(delay: Duration(milliseconds: 10));
+                        screenshotController.capture(
+                            delay: Duration(milliseconds: 10));
                       },
                       height: _screenWH * 28,
                       width: _screenWH * 70,

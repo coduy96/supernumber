@@ -93,7 +93,6 @@ class GameButtonState extends State<GameButton> {
         onTapDown: (TapDownDetails event) {
           setState(() {
             isTapped = true;
-            Flame.audio.play('assets/gameplay.mp3', volume: 100.0);
           });
         },
         onTapUp: (TapUpDetails event) {

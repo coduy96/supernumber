@@ -6,7 +6,7 @@ import 'package:stupidnumber/pages/over_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GamePageBloc {
-  int timeOut = 100000;
+  int timeOut = 4500;
   int level = 0;
   int firstNumber = 0;
   int secondNumber = 0;
@@ -42,20 +42,20 @@ class GamePageBloc {
 
   var randomGenerator = Random();
 
-  void startTimer(BuildContext context) {
+  void startTimer(BuildContext context, String gameplay) {
     currentTimeOut = timeOut;
     timer = Timer.periodic(Duration(milliseconds: 5), (Timer _) {
       currentTimeOut = currentTimeOut - 5;
       if (currentTimeOut < 0.01) {
         timer.cancel();
-        gameOver(context);
+        gameOver(context, gameplay);
       } else {
         percentController.sink.add(currentTimeOut / timeOut);
       }
     });
   }
 
-  void gameOver(BuildContext context) async {
+  void gameOver(BuildContext context, String gamePlay) async {
     print('game over');
     Navigator.pushReplacement(
       context,
@@ -63,11 +63,12 @@ class GamePageBloc {
           builder: (context) => OverPage(
                 finalScore: level,
                 bestScore: bestScore,
+                gamePlay: gamePlay,
               )),
     );
   }
 
-  void nextLevel(BuildContext context) {
+  void nextLevel(BuildContext context, String gamePlay) {
     level++;
     print('level $level');
     levelController.sink.add(level);
@@ -78,20 +79,54 @@ class GamePageBloc {
 
     //timeOut = timeOut -1000;
     print('timeout $timeOut');
-    startTimer(context);
+    startTimer(context, gamePlay);
     //pickRandom();
   }
 
-  void pickRandom(BuildContext context) {
-    nextLevel(context);
+  void pickRandom(BuildContext context, String gamePlay) {
+    nextLevel(context, gamePlay);
     print('timeout = $timeOut level: $level');
-    firstNumber = randomGenerator.nextInt(level+3) + 3;
-    secondNumber = randomGenerator.nextInt(level+3) + 3;
+    firstNumber = randomGenerator.nextInt(level + 3) + 3;
+    secondNumber = randomGenerator.nextInt(level + 3) + 3;
+    switch (gamePlay) {
+      case 'baby':
+        {
+          generatePlus();
+          break;
+        }
+      case 'human':
+        {
+          int ranNum = randomGenerator.nextInt(3) + 1;
+          if (ranNum == 1) {
+            generatePlus();
+          } else if (ranNum == 2) {
+            generateMulti();
+          } else if (ranNum == 3) {
+            generateMulti();
+          }
+          break;
+        }
+      case 'superhuman':
+        {
+          int ranNum = randomGenerator.nextInt(4) + 1;
+          if (ranNum == 1) {
+            generatePlus();
+          } else if (ranNum == 2) {
+            generateMulti();
+          } else if (ranNum == 3) {
+            generateMinus();
+          } else if (ranNum == 4) {
+            generateDevide();
+          }
+          break;
+        }
+    }
+
     //generatePlus();
     //generateMulti();
     //generateMinus();
-    generateDevide();
-    print('title: $title');
+    //generateDevide();
+    //print('title: $title');
     syncData();
   }
 
@@ -190,6 +225,4 @@ class GamePageBloc {
       print('Best score: $bestScore');
     }
   }
-
-
 }

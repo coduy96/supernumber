@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stupidnumber/components/game_button.dart';
@@ -62,11 +63,115 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: GameButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => GamePage()),
-                  );
+                  Flame.audio.play('click.mp3', volume: 50.0);
+
+                  // Navigator.pop(context);
+                  // Navigator.pushReplacement(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => GamePage(gamePlay: 'superhuman',)),
+                  // );
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: Color(0xffA04E68),
+                          title: Center(
+                            child: Text(
+                              'Select your level',
+                              style: GoogleFonts.sigmarOne(
+                                  //color: Color(0xFFc62f2f),
+                                  color: Colors.white),
+                            ),
+                          ),
+                          content: Container(
+                            // decoration: BoxDecoration(
+                            //   color: Color(0xff363062),
+                            //   gradient: LinearGradient(
+                            //       //colors: [Colors.indigo, Colors.deepOrange],
+                            //       colors: [
+                            //         Color(0xff363062),
+                            //         Color(0xffA04E68)
+                            //       ],
+                            //       begin: Alignment.center,
+                            //       end: Alignment.bottomCenter),
+                            // ),
+                            child: Container(
+                              width: _screenWH * 40,
+                              height: _screenWH * 130,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      Flame.audio
+                                          .play('click.mp3', volume: 50.0);
+
+                                      Navigator.pop(context);
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => GamePage(
+                                            gamePlay: 'baby',
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: _screenWH * 30,
+                                      height: _screenWH * 40,
+                                      child: Image.asset('assets/baby.png'),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Flame.audio
+                                          .play('click.mp3', volume: 50.0);
+
+                                      Navigator.pop(context);
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => GamePage(
+                                            gamePlay: 'human',
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: _screenWH * 30,
+                                      height: _screenWH * 40,
+                                      child: Image.asset('assets/human.png'),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Flame.audio
+                                          .play('click.mp3', volume: 50.0);
+
+                                      Navigator.pop(context);
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => GamePage(
+                                            gamePlay: 'superhuman',
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: _screenWH * 30,
+                                      height: _screenWH * 50,
+                                      child:
+                                          Image.asset('assets/superhuman.png'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      });
                 },
                 height: _screenWH * 28,
                 width: _screenWH * 120,
@@ -90,7 +195,9 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GameButton(
-                onPressed: () {},
+                onPressed: () {
+                  Flame.audio.play('click.mp3', volume: 50.0);
+                },
                 height: _screenWH * 28,
                 width: _screenWH * 120,
                 style: ButtonStyle.BLUE,
@@ -113,7 +220,11 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GameButton(
-                onPressed: () {launch('https://dver.now.sh/');},
+                onPressed: () {
+                  Flame.audio.play('click.mp3', volume: 50.0);
+
+                  launch('https://dver.now.sh/');
+                },
                 height: _screenWH * 28,
                 width: _screenWH * 120,
                 style: ButtonStyle.YELLOW,

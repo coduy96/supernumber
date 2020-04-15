@@ -1,14 +1,16 @@
 //import 'package:assets_audio_player/assets_audio_player.dart';
 //import 'package:audioplayer/audioplayer.dart';
+import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:stupidnumber/blocs/GamePageBloc.dart';
 import 'package:stupidnumber/components/game_button.dart';
 import 'package:stupidnumber/pages/home_page.dart';
-import 'package:flutter_audio_player/flutter_audio_player.dart';
 
 class GamePage extends StatefulWidget {
+  final String gamePlay;
+  GamePage({this.gamePlay});
   @override
   _GamePageState createState() => _GamePageState();
 }
@@ -26,7 +28,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _gamePageBloc.pickRandom(context);
+    _gamePageBloc.pickRandom(context, widget.gamePlay);
   }
 
   @override
@@ -184,19 +186,18 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                         print(data);
                                         if (data == _gamePageBloc.mainResult) {
                                           print('right');
-                                          //audioPlugin.play('gameplay.mp3');
-                                          AudioPlayer.addSound(
-                                              'assets/gameplay.mp3');
-                                          // assetsAudioPlayer.open(
-                                          //   Audio("assets/gameplay.mp3"),
-                                          // );
+                                          Flame.audio
+                                              .play('gameplay.mp3', volume: 100.0);
+
                                           _gamePageBloc.timer.cancel();
-                                          _gamePageBloc.pickRandom(context);
+                                          _gamePageBloc.pickRandom(
+                                              context, widget.gamePlay);
                                           print(
                                               'result ${_gamePageBloc.mainResult}');
                                         } else {
                                           await _gamePageBloc.checkScore();
-                                          _gamePageBloc.gameOver(context);
+                                          _gamePageBloc.gameOver(
+                                              context, widget.gamePlay);
                                           print('wrong');
                                         }
                                       },
@@ -231,18 +232,16 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                       onAccept: (data) async {
                                         if (data != _gamePageBloc.mainResult) {
                                           print('right');
-                                          //audioPlugin.play('gameplay.mp3');
+                                          Flame.audio
+                                              .play('gameplay.mp3', volume: 100.0);
 
-                                          AudioPlayer.addSound(
-                                              'assets/gameplay.mp3');
-                                          // assetsAudioPlayer.open(
-                                          //   Audio("assets/gameplay.mp3"),
-                                          // );
                                           _gamePageBloc.timer.cancel();
-                                          _gamePageBloc.pickRandom(context);
+                                          _gamePageBloc.pickRandom(
+                                              context, widget.gamePlay);
                                         } else {
                                           await _gamePageBloc.checkScore();
-                                          _gamePageBloc.gameOver(context);
+                                          _gamePageBloc.gameOver(
+                                              context, widget.gamePlay);
                                           print('wrong');
                                         }
                                       },
@@ -283,18 +282,16 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                       onAccept: (data) async {
                                         if (data != _gamePageBloc.mainResult) {
                                           print('right');
-                                         // audioPlugin.play('gameplay.mp3');
+                                          Flame.audio
+                                              .play('gameplay.mp3', volume: 100.0);
 
-                                          AudioPlayer.addSound(
-                                              'assets/gameplay.mp3');
-                                          // assetsAudioPlayer.open(
-                                          //   Audio("assets/gameplay.mp3"),
-                                          // );
                                           _gamePageBloc.timer.cancel();
-                                          _gamePageBloc.pickRandom(context);
+                                          _gamePageBloc.pickRandom(
+                                              context, widget.gamePlay);
                                         } else {
                                           await _gamePageBloc.checkScore();
-                                          _gamePageBloc.gameOver(context);
+                                          _gamePageBloc.gameOver(
+                                              context, widget.gamePlay);
                                           print('wrong');
                                         }
                                       },
@@ -331,20 +328,18 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                         print(data);
                                         if (data == _gamePageBloc.mainResult) {
                                           print('right');
-                                          //audioPlugin.play('gameplay.mp3');
+                                          Flame.audio
+                                              .play('gameplay.mp3', volume: 100.0);
 
-                                          AudioPlayer.addSound(
-                                              'assets/gameplay.mp3');
-                                          // assetsAudioPlayer.open(
-                                          //   Audio("assets/gameplay.mp3"),
-                                          // );
                                           _gamePageBloc.timer.cancel();
-                                          _gamePageBloc.pickRandom(context);
+                                          _gamePageBloc.pickRandom(
+                                              context, widget.gamePlay);
                                           print(
                                               'result ${_gamePageBloc.mainResult}');
                                         } else {
                                           await _gamePageBloc.checkScore();
-                                          _gamePageBloc.gameOver(context);
+                                          _gamePageBloc.gameOver(
+                                              context, widget.gamePlay);
                                           print('wrong');
                                         }
                                       },
