@@ -7,6 +7,8 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:stupidnumber/blocs/GamePageBloc.dart';
 import 'package:stupidnumber/components/game_button.dart';
 import 'package:stupidnumber/pages/home_page.dart';
+import 'package:admob_flutter/admob_flutter.dart';
+import 'package:stupidnumber/services/admob_service.dart';
 
 class GamePage extends StatefulWidget {
   final String gamePlay;
@@ -18,6 +20,9 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
   GamePageBloc _gamePageBloc = GamePageBloc();
+  AdmobBannerSize bannerSize;
+  AdMobService admobService = AdMobService();
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -29,6 +34,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _gamePageBloc.pickRandom(context, widget.gamePlay);
+    bannerSize = AdmobBannerSize.FULL_BANNER;
   }
 
   @override
@@ -351,7 +357,13 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                                   ),
                                 ],
                               );
-                      })
+                      }),
+                  //Container(
+                    AdmobBanner(
+                      adUnitId: admobService.getBannerAdUnitId(),
+                      adSize: bannerSize,
+                    ),
+                  //),
                 ],
               ),
             ),

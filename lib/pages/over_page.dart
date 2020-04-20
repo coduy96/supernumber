@@ -1,9 +1,12 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stupidnumber/components/game_button.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stupidnumber/pages/home_page.dart';
+import 'package:stupidnumber/services/admob_service.dart';
 
 class OverPage extends StatelessWidget {
   final finalScore;
@@ -13,6 +16,16 @@ class OverPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+    int counterPlay = 0;
+    AdmobInterstitial interstitialAd;
+    AdMobService adMobService = AdMobService();
+
+    interstitialAd = AdmobInterstitial(
+      adUnitId: adMobService.getInterstitialAdUnitId(),
+    );
+
     Flame.audio.play('gameover.mp3', volume: 30.0);
     ScreenshotController screenshotController = ScreenshotController();
 
@@ -44,16 +57,18 @@ class OverPage extends StatelessWidget {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Builder(builder: (context){
-                          if(gamePlay == 'baby'){
-                            return Image.asset('assets/baby.png', width:_screenWH*20);
-                          }else if (gamePlay == 'human'){
-                            return Image.asset('assets/human.png', width:_screenWH*20);
-                          }else{
-                            return Image.asset('assets/superhuman.png', width:_screenWH*20);
+                        Builder(builder: (context) {
+                          if (gamePlay == 'baby') {
+                            return Image.asset('assets/baby.png',
+                                width: _screenWH * 20);
+                          } else if (gamePlay == 'human') {
+                            return Image.asset('assets/human.png',
+                                width: _screenWH * 20);
+                          } else {
+                            return Image.asset('assets/superhuman.png',
+                                width: _screenWH * 20);
                           }
                         }),
-
                         Text(
                           'Current Score: $finalScore',
                           style: GoogleFonts.sigmarOne(
@@ -73,7 +88,21 @@ class OverPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GameButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          final SharedPreferences prefs = await _prefs;
+                          int counterPlay = prefs.getInt('counterPlay');
+                          print('coutneerrererererer: $counterPlay');
+                          if (counterPlay == null) {
+                            prefs.setInt('counterPlay', 0);
+                          }
+                          prefs.setInt('counterPlay', counterPlay + 1);
+                          
+                          if (counterPlay == 5) {
+                            print('SHOWWWWADDDD');
+                            prefs.setInt('counterPlay', 1);
+                            interstitialAd.load();
+                          }
+
                           Navigator.pop(
                             context,
                           );
