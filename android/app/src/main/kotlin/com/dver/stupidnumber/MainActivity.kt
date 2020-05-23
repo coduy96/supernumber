@@ -1,4 +1,4 @@
-package com.dver.stupidnumber
+package com.finme.supernumber
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

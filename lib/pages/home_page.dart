@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stupidnumber/components/game_button.dart';
 import 'package:stupidnumber/pages/game_page.dart';
+import 'package:stupidnumber/services/admob_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,6 +14,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AdmobInterstitial interstitialAd;
+    AdMobService adMobService = AdMobService();
+
+    interstitialAd = AdmobInterstitial(
+      adUnitId: adMobService.getInterstitialAdUnitId(),
+    );
     final double _screenWidth = MediaQuery.of(context).size.width;
     final double _screenHeight = MediaQuery.of(context).size.height;
     final double _screenWH = _screenHeight / _screenWidth;
@@ -197,6 +205,8 @@ class HomePage extends StatelessWidget {
               child: GameButton(
                 onPressed: () {
                   Flame.audio.play('click.mp3', volume: 50.0);
+                  //Ads
+                  interstitialAd.load();
                 },
                 height: _screenWH * 28,
                 width: _screenWH * 120,
@@ -209,7 +219,7 @@ class HomePage extends StatelessWidget {
                       child: Icon(Icons.wc, color: Colors.white),
                     ),
                     Text(
-                      'Support me',
+                      'Support us',
                       style: GoogleFonts.sigmarOne(
                           color: Colors.white, fontSize: _screenWH * 10),
                     ),
@@ -223,7 +233,64 @@ class HomePage extends StatelessWidget {
                 onPressed: () {
                   Flame.audio.play('click.mp3', volume: 50.0);
 
-                  launch('https://dver.now.sh/');
+                  // Navigator.pop(context);
+                  // Navigator.pushReplacement(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => GamePage(gamePlay: 'superhuman',)),
+                  // );
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          //backgroundColor: Color(0xffA04E68),
+                          backgroundColor: Colors.white,
+                          content: Container(
+                            width: _screenWH * 40,
+                            height: _screenWH * 40,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text(
+                                  'Product of FINME',
+                                  style: GoogleFonts.sigmarOne(
+                                      color: Colors.black,
+                                      fontSize: _screenWH * 8),
+                                ),
+                                Text(
+                                  'Develop by Dver',
+                                  style: GoogleFonts.sigmarOne(
+                                      color: Colors.black,
+                                      fontSize: _screenWH * 8),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                'Hide',
+                                style: GoogleFonts.sigmarOne(
+                                    color: Colors.red,
+                                    fontSize: _screenWH * 5),
+                              ),
+                            ),
+                            MaterialButton(
+                              onPressed: () {
+                                launch('https://dver.now.sh/');
+                              },
+                              child: Text(
+                                'More',
+                                style: GoogleFonts.sigmarOne(
+                                    color: Colors.blue,
+                                    fontSize: _screenWH * 5),
+                              ),
+                            ),
+                          ],
+                        );
+                      });
                 },
                 height: _screenWH * 28,
                 width: _screenWH * 120,
